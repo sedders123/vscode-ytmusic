@@ -13,6 +13,10 @@ Connecting VS Code with the [YTMDesktop Player](https://ytmdesktop.app/)
 
 * [YTMDesktop Player](https://ytmdesktop.app/)
 
+## Building
+
+Run `vsce package` to build the extension.
+
 ## Acknoledgements
 
 This project was based on [vscode-gmusic](https://github.com/nickthegroot/vscode-gmusic) by Nick DeGroot.

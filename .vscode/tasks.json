@@ -1,0 +1,9 @@
+{
+    "tasks": [
+        {
+            "label": "compile",
+            "type": "npm",
+            "script": "esbuild"
+        }
+    ]
+}

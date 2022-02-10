@@ -1,0 +1,92 @@
+{
+  "name": "vscode-ytmusic",
+  "displayName": "vscode-ytmusic",
+  "description": "Connecting VS Code with the YTMDesktop Player",
+  "version": "1.0.0",
+  "publisher": "sedders123",
+  "author": {
+    "name": "James Seden Smith"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/sedders123/vscode-ytmusic",
+  "bugs": {
+    "url": "https://github.com/sedders123/vscode-ytmusic/issues",
+    "email": "sedders123@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sedders123/vscode-ytmusic.git"
+  },
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.64.0"
+  },
+  "keywords": [
+    "Youtube Music",
+    "Youtube Music Desktop Player",
+    "YTMDesktop"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "files": [
+    "/dist"
+  ],
+  "main": "./dist/main",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ytMusic.playpause",
+        "title": "Toggle Play Pause",
+        "icon": "src/assets/ppause.png",
+        "category": "Youtube Music"
+      },
+      {
+        "command": "ytMusic.skip",
+        "title": "Skip Song",
+        "icon": "src/assets/forward.png",
+        "category": "Youtube Music"
+      },
+      {
+        "command": "ytMusic.rewind",
+        "title": "Rewind Song",
+        "icon": "src/assets/back.png",
+        "category": "Youtube Music"
+      },
+      {
+        "command": "ytMusic.restart",
+        "title": "Restart",
+        "category": "Youtube Music"
+      },
+      {
+        "command": "ytMusic.cycleRepeat",
+        "title": "Cycle Repeat Mode",
+        "category": "Youtube Music"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify --outfile=dist/main.js",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "test-compile": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.1",
+    "@types/vscode": "^1.64.0",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "esbuild": "^0.14.21",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7",
+    "socket.io-client": "^2.4.0",
+    "vscode-cache": "^0.3.0"
+  }
+}
