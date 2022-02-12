@@ -1,5 +1,6 @@
-.vscode
+.vscode/**
 node_modules
-out/
-src/
-tsconfig.json
+src/**
+**/tsconfig.json
+**/*.map
+**/*.ts

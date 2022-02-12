@@ -4,14 +4,15 @@ import {
   StatusBarAlignment,
   StatusBarItem,
 } from "vscode";
-import { Track, Button, RepeatMode, KeyedCollection } from "./types";
-import { SimpleDictionary } from "./utils";
 import Cache from "vscode-cache";
 import * as io from "socket.io-client";
 import fetch from "node-fetch";
+import { Track, Button, RepeatMode, KeyedCollection } from "./types";
+import { SimpleDictionary } from "./utils";
+import { friendlyErrorMessages } from "./constants";
 
 /**
- * Constantly changing class that holds YTMD data
+ * Constantly changing class that holds YTMDP data
  */
 export default class YouTubeMusic {
   private _nowPlayingStatusBarItem: StatusBarItem;
@@ -23,9 +24,16 @@ export default class YouTubeMusic {
   private _apiUrl = "http://localhost:9863";
   private _socket: io.Socket;
   private _codeCache: Cache;
+  private _lastConnectionErrorMessage: string;
 
   public constructor(context: ExtensionContext) {
-    // Create as needed
+    this._codeCache = new Cache(context);
+    if (!this._codeCache.has("authCode")) {
+      this.auth();
+    } else {
+      this.initSocket(this._codeCache.get("authCode"));
+    }
+
     if (!this._nowPlayingStatusBarItem) {
       this._nowPlayingStatusBarItem = window.createStatusBarItem(
         StatusBarAlignment.Left
@@ -34,44 +42,31 @@ export default class YouTubeMusic {
     if (this._buttons.Count() === 0) {
       this.createControlButtons();
     }
+  }
 
-    this._codeCache = new Cache(context);
-
-    // Get Auth Code if not set
-    if (!this._codeCache.has("authCode")) {
-      window
-        .showInputBox({
-          prompt: "Enter your Youtube Music Desktop Player Auth Code",
-          ignoreFocusOut: true,
-        })
-        .then((code) => {
-          this._codeCache.put("authCode", code);
-        });
-    }
-
+  private initSocket(authCode) {
     this._socket = io.connect(this._apiUrl, {
       extraHeaders: {
-        password: this._codeCache.get("authCode"),
+        password: authCode,
       },
+      reconnectionAttempts: 3,
     });
 
     this._socket.on("tick", (data) => {
-      try {
-        this._track = data.track;
-        this._isPaused = data.player.isPaused;
-        this._repeat = data.player.repeatType;
-        this.updateRepeatButtonState();
-        this.refreshNowPlaying();
-        this.updateDynamicButton("playpause", !this._isPaused);
-      } catch (err) {
-        window.showErrorMessage(
-          `YTMusic: WebSocket failed to connect ${err.message}`
-        );
-      }
+      this._track = data.track;
+      this._isPaused = data.player.isPaused;
+      this._repeat = data.player.repeatType;
+      this.updateRepeatButtonState();
+      this.refreshNowPlaying();
+      this.updateDynamicButton("playpause", !this._isPaused);
     });
 
-    this._socket.on("connect_error", (err) => {
-      window.showErrorMessage(`connect_error due to ${err.message}`);
+    this._socket.on("reconnect_error", (err) => {
+      this._lastConnectionErrorMessage = err.message;
+    });
+
+    this._socket.on("reconnect_failed", () => {
+      this.showErrorMessage(this._lastConnectionErrorMessage);
     });
   }
 
@@ -151,20 +146,6 @@ export default class YouTubeMusic {
     return `${track.title} - ${track.author}`;
   }
 
-  public cycleRepeat() {
-    switch (this._repeat) {
-      case RepeatMode.None:
-        this.toggleRepeat(RepeatMode.Playlist);
-        break;
-      case RepeatMode.Playlist:
-        this.toggleRepeat(RepeatMode.Song);
-        break;
-      case RepeatMode.Song:
-        this.toggleRepeat(RepeatMode.None);
-        break;
-    }
-  }
-
   private post(command, value?) {
     fetch(`${this._apiUrl}/query`, {
       method: "POST",
@@ -176,9 +157,33 @@ export default class YouTubeMusic {
         command,
         value,
       }),
-    }).catch((err) => {
-      window.showErrorMessage(err.message);
-    });
+    })
+      .then(async (response) => {
+        const responseJson = await response.json();
+        if (responseJson.error) {
+          this.showErrorMessage(responseJson.error);
+        }
+      })
+      .catch((err) => {
+        this.showErrorMessage(err);
+      });
+  }
+
+  private showErrorMessage(message: string) {
+    const errorMessage = friendlyErrorMessages.get(message) ?? message;
+    window.showErrorMessage(`vscode-ytmusic: ${errorMessage}`);
+  }
+
+  public auth() {
+    window
+      .showInputBox({
+        prompt: "Enter your Youtube Music Desktop Player Auth Code",
+        ignoreFocusOut: true,
+      })
+      .then((code) => {
+        this._codeCache.put("authCode", code);
+        this.initSocket(code);
+      });
   }
 
   public togglePlay() {
@@ -195,6 +200,20 @@ export default class YouTubeMusic {
 
   public toggleRepeat(mode: string) {
     this.post("player-repeat", mode);
+  }
+
+  public cycleRepeat() {
+    switch (this._repeat) {
+      case RepeatMode.None:
+        this.toggleRepeat(RepeatMode.Playlist);
+        break;
+      case RepeatMode.Playlist:
+        this.toggleRepeat(RepeatMode.Song);
+        break;
+      case RepeatMode.Song:
+        this.toggleRepeat(RepeatMode.None);
+        break;
+    }
   }
 
   public dispose() {

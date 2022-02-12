@@ -2,7 +2,7 @@
   "name": "vscode-ytmusic",
   "displayName": "vscode-ytmusic",
   "description": "Connecting VS Code with the YTMDesktop Player",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "sedders123",
   "author": {
     "name": "James Seden Smith"
@@ -39,6 +39,11 @@
   "contributes": {
     "commands": [
       {
+        "command": "ytMusic.auth",
+        "title": "Set the auth code",
+        "category": "Youtube Music"
+      },
+      {
         "command": "ytMusic.playpause",
         "title": "Toggle Play Pause",
         "icon": "src/assets/ppause.png",
@@ -69,14 +74,15 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run esbuild-base -- --minify --outfile=dist/main.js",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
     "esbuild": "npm run esbuild-base -- --sourcemap",
     "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
     "test-compile": "tsc -p ./"
   },
   "devDependencies": {
     "@types/node": "^12.6.1",
+    "@types/node-fetch": "^2.5.12",
     "@types/vscode": "^1.64.0",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",

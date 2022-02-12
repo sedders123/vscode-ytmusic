@@ -24,10 +24,15 @@ export function activate(context: ExtensionContext) {
     ytMusic = new YouTubeMusic(context);
   });
 
+  const authCommand = commands.registerCommand("ytMusic.auth", () => {
+    ytMusic.auth();
+  });
+
   context.subscriptions.push(playpauseCommand);
   context.subscriptions.push(skipCommand);
   context.subscriptions.push(rewindCommand);
   context.subscriptions.push(restartCommand);
   context.subscriptions.push(cycleRepeatCommand);
+  context.subscriptions.push(authCommand);
   context.subscriptions.push(ytMusic);
 }
