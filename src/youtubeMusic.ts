@@ -28,12 +28,41 @@ export default class YouTubeMusic {
 
   public constructor(context: ExtensionContext) {
     this._codeCache = new Cache(context);
-    if (!this._codeCache.has("authCode")) {
-      this.auth();
+    const authCode = this._codeCache.get("authCode");
+    if (authCode) {
+      this._socket = this.initSocket(authCode);
+      this.createButtons();
     } else {
-      this.initSocket(this._codeCache.get("authCode"));
+      this.createAuthButton();
     }
+  }
 
+  private createAuthButton() {
+    const command = "ytMusic.auth";
+    var statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
+    statusBarItem.text = "Authenticate YTMDP";
+    statusBarItem.command = command;
+    statusBarItem.tooltip = "Authenticate with YouTube Music Desktop Player";
+    this._buttons.Add("auth", {
+      id: "auth",
+      title: "Authenticate with YouTube Music Desktop Player",
+      text: "Authenticate YTMDP",
+      command,
+      statusBarItem,
+      isVisible: true,
+    });
+    statusBarItem.show();
+  }
+
+  private removeButton(id: string) {
+    const button = this._buttons.Item(id);
+    if (button) {
+      button.statusBarItem.hide();
+      this._buttons.Remove(id);
+    }
+  }
+
+  private createButtons() {
     if (!this._nowPlayingStatusBarItem) {
       this._nowPlayingStatusBarItem = window.createStatusBarItem(
         StatusBarAlignment.Left
@@ -45,14 +74,14 @@ export default class YouTubeMusic {
   }
 
   private initSocket(authCode) {
-    this._socket = io.connect(this._apiUrl, {
+    const socket = io.connect(this._apiUrl, {
       extraHeaders: {
         password: authCode,
       },
       reconnectionAttempts: 3,
     });
 
-    this._socket.on("tick", (data) => {
+    socket.on("tick", (data) => {
       this._track = data.track;
       this._isPaused = data.player.isPaused;
       this._repeat = data.player.repeatType;
@@ -61,13 +90,15 @@ export default class YouTubeMusic {
       this.updateDynamicButton("playpause", !this._isPaused);
     });
 
-    this._socket.on("reconnect_error", (err) => {
+    socket.on("reconnect_error", (err) => {
       this._lastConnectionErrorMessage = err.message;
     });
 
-    this._socket.on("reconnect_failed", () => {
+    socket.on("reconnect_failed", () => {
       this.showErrorMessage(this._lastConnectionErrorMessage);
     });
+
+    return socket;
   }
 
   private createControlButtons() {
@@ -183,6 +214,8 @@ export default class YouTubeMusic {
       .then((code) => {
         this._codeCache.put("authCode", code);
         this.initSocket(code);
+        this.removeButton("auth");
+        this.createButtons();
       });
   }
 
