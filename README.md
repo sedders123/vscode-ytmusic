@@ -1,6 +1,6 @@
 # vscode-ytmusic
 
-Connecting VS Code with the [YTMDesktop Player](https://ytmdesktop.app/)
+Connecting VS Code with the [YouTube Music Desktop Player](https://ytmdesktop.app/)
 
 ## Features
 
@@ -11,7 +11,7 @@ Connecting VS Code with the [YTMDesktop Player](https://ytmdesktop.app/)
 
 ## Requirements
 
-* [YTMDesktop Player](https://ytmdesktop.app/)
+* [YTMDesktop App](https://ytmdesktop.app/)
 
 ## Building
 
