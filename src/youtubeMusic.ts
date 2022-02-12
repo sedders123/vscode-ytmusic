@@ -57,7 +57,7 @@ export default class YouTubeMusic {
   private removeButton(id: string) {
     const button = this._buttons.Item(id);
     if (button) {
-      button.statusBarItem.hide();
+      button.statusBarItem.dispose();
       this._buttons.Remove(id);
     }
   }
@@ -193,6 +193,16 @@ export default class YouTubeMusic {
         const responseJson = await response.json();
         if (responseJson.error) {
           this.showErrorMessage(responseJson.error);
+          if (
+            responseJson.error === "Unathorized" ||
+            responseJson.error === "Unauthorized"
+          ) {
+            const buttonKeys = this._buttons.Keys();
+            for (const key of buttonKeys) {
+              this.removeButton(key);
+            }
+            this.createAuthButton();
+          }
         }
       })
       .catch((err) => {
@@ -215,6 +225,8 @@ export default class YouTubeMusic {
         this._codeCache.put("authCode", code);
         this.initSocket(code);
         this.removeButton("auth");
+        this._nowPlayingStatusBarItem.dispose();
+        this._nowPlayingStatusBarItem = null;
         this.createButtons();
       });
   }
