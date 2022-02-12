@@ -1,4 +1,4 @@
-# vscode-ytmdeskptop
+# vscode-ytmusic
 
 Connecting VS Code with the [YTMDesktop Player](https://ytmdesktop.app/)
 
