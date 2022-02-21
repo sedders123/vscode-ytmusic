@@ -57,7 +57,9 @@ export default class YouTubeMusic {
   private removeButton(id: string) {
     const button = this._buttons.Item(id);
     if (button) {
-      button.statusBarItem.dispose();
+      if (button.statusBarItem != null) {
+        button.statusBarItem.dispose();
+      }
       this._buttons.Remove(id);
     }
   }
@@ -225,8 +227,10 @@ export default class YouTubeMusic {
         this._codeCache.put("authCode", code);
         this.initSocket(code);
         this.removeButton("auth");
-        this._nowPlayingStatusBarItem.dispose();
-        this._nowPlayingStatusBarItem = null;
+        if (this._nowPlayingStatusBarItem != null) {
+          this._nowPlayingStatusBarItem.dispose();
+          this._nowPlayingStatusBarItem = null;
+        }
         this.createButtons();
       });
   }
@@ -262,10 +266,16 @@ export default class YouTubeMusic {
   }
 
   public dispose() {
-    this._nowPlayingStatusBarItem.dispose();
+    if (this._nowPlayingStatusBarItem != null) {
+      this._nowPlayingStatusBarItem.dispose();
+    }
     this._buttons.Values().forEach((button) => {
-      button.statusBarItem.dispose();
+      if (button.statusBarItem != null) {
+        button.statusBarItem.dispose();
+      }
     });
-    this._socket.close();
+    if (this._socket != null) {
+      this._socket.close();
+    }
   }
 }
