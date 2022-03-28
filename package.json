@@ -82,7 +82,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.23",
-    "@types/node-fetch": "^2.5.12",
+    "@types/node-fetch": "^2.6.1",
     "@types/vscode": "^1.65.0",
     "esbuild": "^0.14.28",
     "prettier": "^2.6.1",
