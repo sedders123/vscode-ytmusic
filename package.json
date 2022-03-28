@@ -86,7 +86,7 @@
     "@types/vscode": "^1.64.0",
     "esbuild": "^0.14.28",
     "prettier": "^2.5.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.6.3"
   },
   "dependencies": {
     "node-fetch": "^2.6.7",
