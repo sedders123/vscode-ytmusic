@@ -90,7 +90,7 @@
   },
   "dependencies": {
     "node-fetch": "^2.6.7",
-    "socket.io-client": "^2.4.0",
+    "socket.io-client": "^4.4.1",
     "vscode-cache": "^0.3.0"
   }
 }
