@@ -81,7 +81,7 @@
     "test-compile": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
+    "@types/node": "^17.0.31",
     "@types/node-fetch": "^2.6.1",
     "@types/vscode": "^1.66.0",
     "esbuild": "^0.14.34",
