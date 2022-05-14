@@ -89,7 +89,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "node-fetch": "^3.2.3",
+    "node-fetch": "^3.2.4",
     "socket.io-client": "^2.4.0",
     "vscode-cache": "^0.3.0"
   }
