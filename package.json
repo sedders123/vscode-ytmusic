@@ -21,6 +21,9 @@
   "engines": {
     "vscode": "^1.64.0"
   },
+  "extensionKind": [
+    "ui"
+  ],
   "keywords": [
     "Youtube Music",
     "Youtube Music Desktop Player",
