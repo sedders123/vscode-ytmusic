@@ -32,3 +32,7 @@ export interface KeyedCollection<T> {
   Remove(key: string): void;
   Values(): T[];
 }
+
+export interface ApiResponse {
+  error: string;
+}

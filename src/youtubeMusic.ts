@@ -7,7 +7,13 @@ import {
 import Cache from "vscode-cache";
 import * as io from "socket.io-client";
 import fetch from "node-fetch";
-import { Track, Button, RepeatMode, KeyedCollection } from "./types";
+import {
+  Track,
+  Button,
+  RepeatMode,
+  KeyedCollection,
+  ApiResponse,
+} from "./types";
 import { SimpleDictionary } from "./utils";
 import { friendlyErrorMessages } from "./constants";
 
@@ -15,7 +21,7 @@ import { friendlyErrorMessages } from "./constants";
  * Constantly changing class that holds YTMDP data
  */
 export default class YouTubeMusic {
-  private _nowPlayingStatusBarItem: StatusBarItem;
+  private _nowPlayingStatusBarItem: StatusBarItem | null;
   private _buttons: KeyedCollection<Button> = new SimpleDictionary<Button>();
 
   private _track: Track;
@@ -159,12 +165,14 @@ export default class YouTubeMusic {
 
   private updateDynamicButton(id: string, condition: boolean) {
     const button = this._buttons.Item(id);
+    if (button == null || button.dynamicText == null) return;
     const text = button.dynamicText(condition);
     button.statusBarItem.text = text;
   }
 
   private refreshNowPlaying() {
     let textItem = this.getNowPlayingText(this._track);
+    if (this._nowPlayingStatusBarItem == null) return;
     if (textItem == null) {
       this._nowPlayingStatusBarItem.hide();
     }
@@ -174,7 +182,7 @@ export default class YouTubeMusic {
 
   private getNowPlayingText(track: Track): string {
     if (track == null || track.title === null) {
-      return null;
+      return "";
     }
     return `${track.title} - ${track.author}`;
   }
@@ -192,7 +200,8 @@ export default class YouTubeMusic {
       }),
     })
       .then(async (response) => {
-        const responseJson = await response.json();
+        const responseJson: ApiResponse =
+          (await response.json()) as ApiResponse;
         if (responseJson.error) {
           this.showErrorMessage(responseJson.error);
           if (
