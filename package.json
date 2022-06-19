@@ -84,16 +84,16 @@
     "test-compile": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/node-fetch": "^2.6.2",
-    "@types/vscode": "^1.68.0",
-    "esbuild": "^0.14.45",
-    "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "@types/node": "18.0.0",
+    "@types/node-fetch": "2.6.2",
+    "@types/vscode": "1.68.0",
+    "esbuild": "0.14.45",
+    "prettier": "2.7.1",
+    "typescript": "4.7.4"
   },
   "dependencies": {
-    "node-fetch": "^3.2.6",
-    "socket.io-client": "^2.4.0",
-    "vscode-cache": "^0.3.0"
+    "node-fetch": "3.2.6",
+    "socket.io-client": "2.4.0",
+    "vscode-cache": "0.3.0"
   }
 }
