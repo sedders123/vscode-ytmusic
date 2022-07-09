@@ -29,8 +29,7 @@ jobs:
 
       - name: Include Git commit in version
         run: |
-          GIT_REF="git rev-parse HEAD"
-          jq --arg GIT_REF $GIT_REF '.version+="-'"$GIT_REF"'"' package.json > package.json.new && mv package.json.new package.json
+          jq '.version+="-'"$GITHUB_SHA"'"' package.json > package.json.new && mv package.json.new package.json
 
       - name: Build Extension
         run: vsce package
