@@ -1,0 +1,43 @@
+name: CI Build
+
+on:
+  push:
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g vsce
+
+      - name: Lint Lockfile
+        run: npm run lint:lockfile
+
+      - name: Include Git commit in version
+        run: |
+          GIT_REF="git rev-parse HEAD"
+          jq --arg GIT_REF $GIT_REF '.version+="-'"$GIT_REF"'"' package.json > package.json.new && mv package.json.new package.json
+
+      - name: Build Extension
+        run: vsce package
+
+      - name: Upload Extension as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: extension
+          path: |
+            *.vsix
