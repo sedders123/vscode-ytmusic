@@ -49,19 +49,16 @@
       {
         "command": "ytMusic.playpause",
         "title": "Toggle Play Pause",
-        "icon": "src/assets/ppause.png",
         "category": "Youtube Music"
       },
       {
         "command": "ytMusic.skip",
         "title": "Skip Song",
-        "icon": "src/assets/forward.png",
         "category": "Youtube Music"
       },
       {
         "command": "ytMusic.rewind",
         "title": "Rewind Song",
-        "icon": "src/assets/back.png",
         "category": "Youtube Music"
       },
       {
