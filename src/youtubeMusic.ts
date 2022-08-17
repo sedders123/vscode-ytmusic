@@ -7,14 +7,7 @@ import {
 import Cache from "vscode-cache";
 import * as io from "socket.io-client";
 import fetch from "node-fetch";
-import {
-  Track,
-  Button,
-  RepeatMode,
-  KeyedCollection,
-  ApiResponse,
-} from "./types";
-import { SimpleDictionary } from "./utils";
+import { Track, Button, RepeatMode, ApiResponse } from "./types";
 import { friendlyErrorMessages } from "./constants";
 
 /**
@@ -22,7 +15,7 @@ import { friendlyErrorMessages } from "./constants";
  */
 export default class YouTubeMusic {
   private _nowPlayingStatusBarItem: StatusBarItem | null;
-  private _buttons: KeyedCollection<Button> = new SimpleDictionary<Button>();
+  private _buttons: Record<string, Button> = {};
 
   private _track: Track;
   private _isPaused: boolean;
@@ -49,24 +42,24 @@ export default class YouTubeMusic {
     statusBarItem.text = "Authenticate YTMDP";
     statusBarItem.command = command;
     statusBarItem.tooltip = "Authenticate with YouTube Music Desktop Player";
-    this._buttons.Add("auth", {
+    this._buttons["auth"] = {
       id: "auth",
       title: "Authenticate with YouTube Music Desktop Player",
       text: "Authenticate YTMDP",
       command,
       statusBarItem,
       isVisible: true,
-    });
+    };
     statusBarItem.show();
   }
 
   private removeButton(id: string) {
-    const button = this._buttons.Item(id);
+    const button = this._buttons[id];
     if (button) {
       if (button.statusBarItem != null) {
         button.statusBarItem.dispose();
       }
-      this._buttons.Remove(id);
+      delete this._buttons[id];
     }
   }
 
@@ -76,7 +69,7 @@ export default class YouTubeMusic {
         StatusBarAlignment.Left
       );
     }
-    if (this._buttons.Count() === 0) {
+    if (Object.keys(this._buttons).length === 0) {
       this.createControlButtons();
     }
   }
@@ -129,17 +122,18 @@ export default class YouTubeMusic {
       statusBarItem.text = button.text;
       statusBarItem.command = command;
       statusBarItem.tooltip = button.title;
-      this._buttons.Add(
-        button.id,
-        Object.assign({}, button, { command, statusBarItem, isVisible: true })
-      );
+      this._buttons[button.id] = Object.assign({}, button, {
+        command,
+        statusBarItem,
+        isVisible: true,
+      });
       statusBarItem.show();
     });
     this.updateRepeatButtonState(); // Set the initial state of the repeat button
   }
 
   private updateRepeatButtonState() {
-    const repeatButton = this._buttons.Item("cycleRepeat");
+    const repeatButton = this._buttons["cycleRepeat"];
     if (repeatButton == null) {
       return; // Button not created yet
     }
@@ -164,7 +158,7 @@ export default class YouTubeMusic {
   }
 
   private updateDynamicButton(id: string, condition: boolean) {
-    const button = this._buttons.Item(id);
+    const button = this._buttons[id];
     if (button == null || button.dynamicText == null) return;
     const text = button.dynamicText(condition);
     button.statusBarItem.text = text;
@@ -208,7 +202,7 @@ export default class YouTubeMusic {
             responseJson.error === "Unathorized" ||
             responseJson.error === "Unauthorized"
           ) {
-            const buttonKeys = this._buttons.Keys();
+            const buttonKeys = Object.keys(this._buttons);
             for (const key of buttonKeys) {
               this.removeButton(key);
             }
@@ -278,7 +272,7 @@ export default class YouTubeMusic {
     if (this._nowPlayingStatusBarItem != null) {
       this._nowPlayingStatusBarItem.dispose();
     }
-    this._buttons.Values().forEach((button) => {
+    Object.values(this._buttons).forEach((button) => {
       if (button.statusBarItem != null) {
         button.statusBarItem.dispose();
       }

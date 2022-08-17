@@ -23,16 +23,6 @@ export interface Button {
   isVisible: boolean;
 }
 
-export interface KeyedCollection<T> {
-  Add(key: string, value: T);
-  ContainsKey(key: string): boolean;
-  Count(): number;
-  Item(key: string): T | null | undefined;
-  Keys(): string[];
-  Remove(key: string): void;
-  Values(): T[];
-}
-
 export interface ApiResponse {
   error: string;
 }
