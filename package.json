@@ -83,14 +83,14 @@
       "mui-thumbs-up": {
         "description": "Thumbs up outlined",
         "default": {
-          "fontPath": "./productIcons/fonts/material-ui-font.woff2",
+          "fontPath": "./fonts/material-ui-font.woff2",
           "fontCharacter": "\\e9f3"
         }
       },
       "mui-thumbs-up-solid": {
         "description": "Thumbs up solid",
         "default": {
-          "fontPath": "./productIcons/fonts/material-ui-font.woff2",
+          "fontPath": "./fonts/material-ui-font.woff2",
           "fontCharacter": "\\e8dc"
         }
       },
