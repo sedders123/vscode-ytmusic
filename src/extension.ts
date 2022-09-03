@@ -28,11 +28,21 @@ export function activate(context: ExtensionContext) {
     ytMusic.auth();
   });
 
+  const thumbsUpCommand = commands.registerCommand("ytMusic.thumbsup", () => {
+    ytMusic.thumbsUp();
+  });
+
+  const thumbsDownCommand = commands.registerCommand("ytMusic.thumbsdown", () => {
+    ytMusic.thumbsDown();
+  });
+
   context.subscriptions.push(playpauseCommand);
   context.subscriptions.push(skipCommand);
   context.subscriptions.push(rewindCommand);
   context.subscriptions.push(restartCommand);
   context.subscriptions.push(cycleRepeatCommand);
   context.subscriptions.push(authCommand);
+  context.subscriptions.push(thumbsUpCommand);
+  context.subscriptions.push(thumbsDownCommand);
   context.subscriptions.push(ytMusic);
 }

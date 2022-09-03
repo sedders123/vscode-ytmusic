@@ -89,6 +89,8 @@ export default class YouTubeMusic {
       this.updateRepeatButtonState();
       this.refreshNowPlaying();
       this.updateDynamicButton("playpause", !this._isPaused);
+      this.updateDynamicButton("thumbsup", data.player.likeStatus === 'LIKE');
+      this.updateDynamicButton("thumbsdown", data.player.likeStatus === 'DISLIKE');
     });
 
     socket.on("reconnect_error", (err) => {
@@ -114,6 +116,20 @@ export default class YouTubeMusic {
       },
       { id: "skip", title: "Next Song", text: "$(chevron-right)" },
       { id: "cycleRepeat", title: "Not Repeating", text: "$(sync)" },
+      {
+        id: "thumbsdown",
+        title: "Thumbs Down",
+        text: "$(mui-thumbs-down)",
+        dynamicText: (isThumbsDown: boolean) =>
+        isThumbsDown ? "$(mui-thumbs-down-solid)" : "$(mui-thumbs-down)",
+      },
+      {
+        id: "thumbsup",
+        title: "Thumbs Up",
+        text: "$(mui-thumbs-up)",
+        dynamicText: (isThumbsUp: boolean) =>
+          isThumbsUp ? "$(mui-thumbs-up-solid)" : "$(mui-thumbs-up)",
+      }
     ];
 
     buttons.map((button) => {
@@ -252,6 +268,14 @@ export default class YouTubeMusic {
 
   public toggleRepeat(mode: string) {
     this.post("player-repeat", mode);
+  }
+
+  public thumbsUp() {
+    this.post("track-thumbs-up");
+  }
+
+  public thumbsDown() {
+    this.post("track-thumbs-down");
   }
 
   public cycleRepeat() {

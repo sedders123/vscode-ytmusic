@@ -71,7 +71,44 @@
         "title": "Cycle Repeat Mode",
         "category": "Youtube Music"
       }
-    ]
+    ],
+    "productIconThemes": [
+      {
+        "id": "material-ui-font-icons",
+        "label": "Material UI font Icons",
+        "path": "./productIcons/material-ui-font-icons.json"
+      }
+    ],
+    "icons":{
+      "mui-thumbs-up": {
+        "description": "Thumbs up outlined",
+        "default": {
+          "fontPath": "./productIcons/fonts/material-ui-font.woff2",
+          "fontCharacter": "\\e9f3"
+        }
+      },
+      "mui-thumbs-up-solid": {
+        "description": "Thumbs up solid",
+        "default": {
+          "fontPath": "./productIcons/fonts/material-ui-font.woff2",
+          "fontCharacter": "\\e8dc"
+        }
+      },
+      "mui-thumbs-down": {
+        "description": "Thumbs down outlined",
+        "default": {
+          "fontPath": "./fonts/material-ui-font.woff2",
+          "fontCharacter": "\\e9f2"
+        }
+      },
+      "mui-thumbs-down-solid": {
+        "description": "Thumbs down solid",
+        "default": {
+          "fontPath": "./fonts/material-ui-font.woff2",
+          "fontCharacter": "\\e8db"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run esbuild-base -- --minify",
