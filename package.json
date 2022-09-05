@@ -72,13 +72,6 @@
         "category": "Youtube Music"
       }
     ],
-    "productIconThemes": [
-      {
-        "id": "material-ui-font-icons",
-        "label": "Material UI font Icons",
-        "path": "./productIcons/material-ui-font-icons.json"
-      }
-    ],
     "icons":{
       "mui-thumbs-up": {
         "description": "Thumbs up outlined",
