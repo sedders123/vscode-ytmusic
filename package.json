@@ -2,7 +2,7 @@
   "name": "vscode-ytmusic",
   "displayName": "vscode-ytmusic",
   "description": "Connecting VS Code with the YTMDesktop Player",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "publisher": "sedders123",
   "author": {
     "name": "James Seden Smith"
@@ -71,7 +71,37 @@
         "title": "Cycle Repeat Mode",
         "category": "Youtube Music"
       }
-    ]
+    ],
+    "icons":{
+      "mui-thumbs-up": {
+        "description": "Thumbs up outlined",
+        "default": {
+          "fontPath": "./fonts/material-ui-font-subset.woff2",
+          "fontCharacter": "\\e9f3"
+        }
+      },
+      "mui-thumbs-up-solid": {
+        "description": "Thumbs up solid",
+        "default": {
+          "fontPath": "./fonts/material-ui-font-subset.woff2",
+          "fontCharacter": "\\e8dc"
+        }
+      },
+      "mui-thumbs-down": {
+        "description": "Thumbs down outlined",
+        "default": {
+          "fontPath": "./fonts/material-ui-font-subset.woff2",
+          "fontCharacter": "\\e9f2"
+        }
+      },
+      "mui-thumbs-down-solid": {
+        "description": "Thumbs down solid",
+        "default": {
+          "fontPath": "./fonts/material-ui-font-subset.woff2",
+          "fontCharacter": "\\e8db"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run esbuild-base -- --minify",
