@@ -121,7 +121,7 @@ export default class YouTubeMusic {
         title: "Thumbs Down",
         text: "$(mui-thumbs-down)",
         dynamicText: (isThumbsDown: boolean) =>
-        isThumbsDown ? "$(mui-thumbs-down-solid)" : "$(mui-thumbs-down)",
+          isThumbsDown ? "$(mui-thumbs-down-solid)" : "$(mui-thumbs-down)",
       },
       {
         id: "thumbsup",
