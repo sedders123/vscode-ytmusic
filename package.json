@@ -2,7 +2,7 @@
   "name": "vscode-ytmusic",
   "displayName": "vscode-ytmusic",
   "description": "Connecting VS Code with the YTMDesktop Player",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "publisher": "sedders123",
   "author": {
     "name": "James Seden Smith"
