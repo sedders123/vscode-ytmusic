@@ -47,7 +47,7 @@
         "category": "Youtube Music"
       },
       {
-        "command": "ytMusic.playpause",
+        "command": "ytMusic.playPause",
         "title": "Toggle Play Pause",
         "category": "Youtube Music"
       },
@@ -69,6 +69,16 @@
       {
         "command": "ytMusic.cycleRepeat",
         "title": "Cycle Repeat Mode",
+        "category": "Youtube Music"
+      },
+      {
+        "command": "ytMusic.thumbsUp",
+        "title": "Thumbs Up Current Song",
+        "category": "Youtube Music"
+      },
+      {
+        "command": "ytMusic.thumbsDown",
+        "title": "Thumbs Down Current Song",
         "category": "Youtube Music"
       }
     ],

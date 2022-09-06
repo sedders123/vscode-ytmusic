@@ -88,9 +88,12 @@ export default class YouTubeMusic {
       this._repeat = data.player.repeatType;
       this.updateRepeatButtonState();
       this.refreshNowPlaying();
-      this.updateDynamicButton("playpause", !this._isPaused);
-      this.updateDynamicButton("thumbsup", data.player.likeStatus === 'LIKE');
-      this.updateDynamicButton("thumbsdown", data.player.likeStatus === 'DISLIKE');
+      this.updateDynamicButton("playPause", !this._isPaused);
+      this.updateDynamicButton("thumbsUp", data.player.likeStatus === "LIKE");
+      this.updateDynamicButton(
+        "thumbsDown",
+        data.player.likeStatus === "DISLIKE"
+      );
     });
 
     socket.on("reconnect_error", (err) => {
@@ -108,7 +111,7 @@ export default class YouTubeMusic {
     const buttons = [
       { id: "rewind", title: "Previous Song", text: "$(chevron-left)" },
       {
-        id: "playpause",
+        id: "playPause",
         title: "Play / Pause",
         text: "$(triangle-right)",
         dynamicText: (currentlyPlaying: boolean) =>
@@ -117,19 +120,19 @@ export default class YouTubeMusic {
       { id: "skip", title: "Next Song", text: "$(chevron-right)" },
       { id: "cycleRepeat", title: "Not Repeating", text: "$(sync)" },
       {
-        id: "thumbsdown",
+        id: "thumbsDown",
         title: "Thumbs Down",
         text: "$(mui-thumbs-down)",
         dynamicText: (isThumbsDown: boolean) =>
           isThumbsDown ? "$(mui-thumbs-down-solid)" : "$(mui-thumbs-down)",
       },
       {
-        id: "thumbsup",
+        id: "thumbsUp",
         title: "Thumbs Up",
         text: "$(mui-thumbs-up)",
         dynamicText: (isThumbsUp: boolean) =>
           isThumbsUp ? "$(mui-thumbs-up-solid)" : "$(mui-thumbs-up)",
-      }
+      },
     ];
 
     buttons.map((button) => {

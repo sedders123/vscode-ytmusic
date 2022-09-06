@@ -4,7 +4,7 @@ import YouTubeMusic from "./youtubeMusic";
 export function activate(context: ExtensionContext) {
   let ytMusic = new YouTubeMusic(context);
 
-  const playpauseCommand = commands.registerCommand("ytMusic.playpause", () => {
+  const playPauseCommand = commands.registerCommand("ytMusic.playPause", () => {
     ytMusic.togglePlay();
   });
   const skipCommand = commands.registerCommand("ytMusic.skip", () => {
@@ -28,15 +28,18 @@ export function activate(context: ExtensionContext) {
     ytMusic.auth();
   });
 
-  const thumbsUpCommand = commands.registerCommand("ytMusic.thumbsup", () => {
+  const thumbsUpCommand = commands.registerCommand("ytMusic.thumbsUp", () => {
     ytMusic.thumbsUp();
   });
 
-  const thumbsDownCommand = commands.registerCommand("ytMusic.thumbsdown", () => {
-    ytMusic.thumbsDown();
-  });
+  const thumbsDownCommand = commands.registerCommand(
+    "ytMusic.thumbsDown",
+    () => {
+      ytMusic.thumbsDown();
+    }
+  );
 
-  context.subscriptions.push(playpauseCommand);
+  context.subscriptions.push(playPauseCommand);
   context.subscriptions.push(skipCommand);
   context.subscriptions.push(rewindCommand);
   context.subscriptions.push(restartCommand);
