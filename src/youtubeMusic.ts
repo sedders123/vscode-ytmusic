@@ -136,6 +136,7 @@ export default class YouTubeMusic {
         title: "Not Repeating",
         text: "$(sync)",
         priority: 0.6,
+        name: "Cycle Repeat Mode",
       },
       {
         id: "thumbsDown",
@@ -162,7 +163,7 @@ export default class YouTubeMusic {
         StatusBarAlignment.Left,
         button.priority
       );
-      statusBarItem.name = `YT Music - ${button.title}`;
+      statusBarItem.name = `YT Music - ${button.name || button.title}`;
       statusBarItem.text = button.text;
       statusBarItem.command = command;
       statusBarItem.tooltip = button.title;
