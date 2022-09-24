@@ -38,7 +38,7 @@ export default class YouTubeMusic {
 
   private createAuthButton() {
     const command = "ytMusic.auth";
-    var statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
+    const statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
     statusBarItem.text = "Authenticate YTMDP";
     statusBarItem.command = command;
     statusBarItem.tooltip = "Authenticate with YouTube Music Desktop Player";
@@ -66,8 +66,10 @@ export default class YouTubeMusic {
   private createButtons() {
     if (!this._nowPlayingStatusBarItem) {
       this._nowPlayingStatusBarItem = window.createStatusBarItem(
-        StatusBarAlignment.Left
+        StatusBarAlignment.Left,
+        0.1
       );
+      this._nowPlayingStatusBarItem.name = "YT Music - Now Playing";
     }
     if (Object.keys(this._buttons).length === 0) {
       this.createControlButtons();
@@ -109,22 +111,39 @@ export default class YouTubeMusic {
 
   private createControlButtons() {
     const buttons = [
-      { id: "rewind", title: "Previous Song", text: "$(chevron-left)" },
+      {
+        id: "rewind",
+        title: "Previous Song",
+        text: "$(chevron-left)",
+        priority: 0.9,
+      },
       {
         id: "playPause",
         title: "Play / Pause",
         text: "$(triangle-right)",
         dynamicText: (currentlyPlaying: boolean) =>
           currentlyPlaying ? "$(primitive-square)" : "$(triangle-right)",
+        priority: 0.8,
       },
-      { id: "skip", title: "Next Song", text: "$(chevron-right)" },
-      { id: "cycleRepeat", title: "Not Repeating", text: "$(sync)" },
+      {
+        id: "skip",
+        title: "Next Song",
+        text: "$(chevron-right)",
+        priority: 0.7,
+      },
+      {
+        id: "cycleRepeat",
+        title: "Not Repeating",
+        text: "$(sync)",
+        priority: 0.6,
+      },
       {
         id: "thumbsDown",
         title: "Thumbs Down",
         text: "$(mui-thumbs-down)",
         dynamicText: (isThumbsDown: boolean) =>
           isThumbsDown ? "$(mui-thumbs-down-solid)" : "$(mui-thumbs-down)",
+        priority: 0.4,
       },
       {
         id: "thumbsUp",
@@ -132,12 +151,18 @@ export default class YouTubeMusic {
         text: "$(mui-thumbs-up)",
         dynamicText: (isThumbsUp: boolean) =>
           isThumbsUp ? "$(mui-thumbs-up-solid)" : "$(mui-thumbs-up)",
+        priority: 0.3,
       },
     ];
 
     buttons.map((button) => {
       const command = "ytMusic." + button.id;
-      var statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
+      const statusBarItem = window.createStatusBarItem(
+        button.id,
+        StatusBarAlignment.Left,
+        button.priority
+      );
+      statusBarItem.name = `YT Music - ${button.title}`;
       statusBarItem.text = button.text;
       statusBarItem.command = command;
       statusBarItem.tooltip = button.title;
