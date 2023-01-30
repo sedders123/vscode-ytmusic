@@ -128,7 +128,7 @@
     "esbuild": "0.17.5",
     "lockfile-lint": "4.10.0",
     "prettier": "2.8.3",
-    "typescript": "4.9.4"
+    "typescript": "4.9.5"
   },
   "dependencies": {
     "node-fetch": "3.3.0",
