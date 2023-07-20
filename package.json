@@ -125,7 +125,7 @@
     "@types/node": "20.4.2",
     "@types/node-fetch": "2.6.4",
     "@types/vscode": "1.64.0",
-    "esbuild": "0.18.14",
+    "esbuild": "0.18.15",
     "lockfile-lint": "4.10.6",
     "prettier": "3.0.0",
     "typescript": "5.1.6"
