@@ -14,7 +14,8 @@
             "stopOnEntry": false,
             "sourceMaps": true,
             "outFiles": [
-                "${workspaceRoot}/out/**/*.js"
+                "${workspaceRoot}/dist/**/*.js",
+                "${workspaceRoot}/dist/**/*.js.map"
             ]
         }
     ]
