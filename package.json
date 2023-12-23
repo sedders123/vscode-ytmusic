@@ -83,32 +83,60 @@
       }
     ],
     "icons": {
-      "mui-thumbs-up": {
-        "description": "Thumbs up outlined",
+      "icon-thumbs-up-deselected": {
+        "description": "Thumbs up deselected",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e9f3"
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e903"
         }
       },
-      "mui-thumbs-up-solid": {
-        "description": "Thumbs up solid",
+      "icon-thumbs-up-selected": {
+        "description": "Thumbs up selected",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e8dc"
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e907"
         }
       },
-      "mui-thumbs-down": {
-        "description": "Thumbs down outlined",
+      "icon-thumbs-down-deselected": {
+        "description": "Thumbs up deselected",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e9f2"
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e902"
         }
       },
-      "mui-thumbs-down-solid": {
-        "description": "Thumbs down solid",
+      "icon-thumbs-down-selected": {
+        "description": "Thumbs up selected",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e8db"
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e906"
+        }
+      },
+      "icon-play": {
+        "description": "Play icon",
+        "default": {
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e905"
+        }
+      },
+      "icon-pause": {
+        "description": "Pause icon",
+        "default": {
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e904"
+        }
+      },
+      "icon-skip-next": {
+        "description": "Skip next icon",
+        "default": {
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e901"
+        }
+      },
+      "icon-skip-previous": {
+        "description": "Skip previous icon",
+        "default": {
+          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontCharacter": "\\e900"
         }
       }
     }
