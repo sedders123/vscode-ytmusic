@@ -86,56 +86,56 @@
       "icon-thumbs-up-deselected": {
         "description": "Thumbs up deselected",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e903"
         }
       },
       "icon-thumbs-up-selected": {
         "description": "Thumbs up selected",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e907"
         }
       },
       "icon-thumbs-down-deselected": {
         "description": "Thumbs up deselected",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e902"
         }
       },
       "icon-thumbs-down-selected": {
         "description": "Thumbs up selected",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e906"
         }
       },
       "icon-play": {
         "description": "Play icon",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e905"
         }
       },
       "icon-pause": {
         "description": "Pause icon",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e904"
         }
       },
       "icon-skip-next": {
         "description": "Skip next icon",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e901"
         }
       },
       "icon-skip-previous": {
         "description": "Skip previous icon",
         "default": {
-          "fontPath": "./fonts/ytm-vscode-extension-subset.woff2",
+          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
           "fontCharacter": "\\e900"
         }
       }
