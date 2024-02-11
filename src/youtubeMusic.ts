@@ -5,9 +5,7 @@ import {
   StatusBarItem,
 } from "vscode";
 import Cache from "vscode-cache";
-import * as io from "socket.io-client";
-import fetch from "node-fetch";
-import { Track, Button, RepeatMode, ApiResponse } from "./types";
+import { Track, Button, RepeatMode } from "./types";
 import { friendlyErrorMessages } from "./constants";
 
 /**
@@ -18,39 +16,18 @@ export default class YouTubeMusic {
   private _buttons: Record<string, Button> = {};
 
   private _track: Track;
-  private _isPaused: boolean;
   private _repeat: string;
-  private _apiUrl = "http://localhost:9863";
-  private _socket: io.Socket;
   private _codeCache: Cache;
-  private _lastConnectionErrorMessage: string;
 
   public constructor(context: ExtensionContext) {
     this._codeCache = new Cache(context);
     const authCode = this._codeCache.get("authCode");
     if (authCode) {
-      this._socket = this.initSocket(authCode);
+      // Initialize the socket
       this.createButtons();
     } else {
-      this.createAuthButton();
+      // Trigger the auth flow
     }
-  }
-
-  private createAuthButton() {
-    const command = "ytMusic.auth";
-    const statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
-    statusBarItem.text = "Authenticate YTMDP";
-    statusBarItem.command = command;
-    statusBarItem.tooltip = "Authenticate with YouTube Music Desktop Player";
-    this._buttons["auth"] = {
-      id: "auth",
-      title: "Authenticate with YouTube Music Desktop Player",
-      text: "Authenticate YTMDP",
-      command,
-      statusBarItem,
-      isVisible: true,
-    };
-    statusBarItem.show();
   }
 
   private removeButton(id: string) {
@@ -74,39 +51,6 @@ export default class YouTubeMusic {
     if (Object.keys(this._buttons).length === 0) {
       this.createControlButtons();
     }
-  }
-
-  private initSocket(authCode) {
-    const socket = io.connect(this._apiUrl, {
-      extraHeaders: {
-        password: authCode,
-      },
-      reconnectionAttempts: 3,
-    });
-
-    socket.on("tick", (data) => {
-      this._track = data.track;
-      this._isPaused = data.player.isPaused;
-      this._repeat = data.player.repeatType;
-      this.updateRepeatButtonState();
-      this.refreshNowPlaying();
-      this.updateDynamicButton("playPause", !this._isPaused);
-      this.updateDynamicButton("thumbsUp", data.player.likeStatus === "LIKE");
-      this.updateDynamicButton(
-        "thumbsDown",
-        data.player.likeStatus === "DISLIKE"
-      );
-    });
-
-    socket.on("reconnect_error", (err) => {
-      this._lastConnectionErrorMessage = err.message;
-    });
-
-    socket.on("reconnect_failed", () => {
-      this.showErrorMessage(this._lastConnectionErrorMessage);
-    });
-
-    return socket;
   }
 
   private createControlButtons() {
@@ -226,85 +170,40 @@ export default class YouTubeMusic {
     return `${track.title} - ${track.author}`;
   }
 
-  private post(command, value?) {
-    fetch(`${this._apiUrl}/query`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Code ${this._codeCache.get("authCode")}`,
-      },
-      body: JSON.stringify({
-        command,
-        value,
-      }),
-    })
-      .then(async (response) => {
-        const responseJson: ApiResponse =
-          (await response.json()) as ApiResponse;
-        if (responseJson.error) {
-          this.showErrorMessage(responseJson.error);
-          if (
-            responseJson.error === "Unathorized" ||
-            responseJson.error === "Unauthorized"
-          ) {
-            const buttonKeys = Object.keys(this._buttons);
-            for (const key of buttonKeys) {
-              this.removeButton(key);
-            }
-            this.createAuthButton();
-          }
-        }
-      })
-      .catch((err) => {
-        this.showErrorMessage(err);
-      });
-  }
-
   private showErrorMessage(message: string) {
     const errorMessage = friendlyErrorMessages.get(message) ?? message;
     window.showErrorMessage(`vscode-ytmusic: ${errorMessage}`);
   }
 
   public auth() {
-    window
-      .showInputBox({
-        prompt: "Enter your Youtube Music Desktop Player Auth Code",
-        ignoreFocusOut: true,
-      })
-      .then((code) => {
-        this._codeCache.put("authCode", code);
-        this.initSocket(code);
-        this.removeButton("auth");
-        if (this._nowPlayingStatusBarItem != null) {
-          this._nowPlayingStatusBarItem.dispose();
-          this._nowPlayingStatusBarItem = null;
-        }
-        this.createButtons();
-      });
+    // TODO: Implement auth flow
   }
 
   public togglePlay() {
-    this.post("track-play-pause");
+    // TODO: Implement play/pause
   }
 
   public forward() {
-    this.post("track-next");
+    // TODO: Implement forward
+    // TODO: Rename to next
   }
 
   public rewind() {
-    this.post("track-previous");
+    // TODO: Implement rewind
+    // TODO: Rename to previous
   }
 
   public toggleRepeat(mode: string) {
-    this.post("player-repeat", mode);
+    // TODO: Implement repeat
+    // TODO: Rename to setRepeatMode, private?
   }
 
   public thumbsUp() {
-    this.post("track-thumbs-up");
+    // TODO: Implement thumbs up
   }
 
   public thumbsDown() {
-    this.post("track-thumbs-down");
+    // TODO: Implement thumbs down
   }
 
   public cycleRepeat() {
@@ -330,8 +229,6 @@ export default class YouTubeMusic {
         button.statusBarItem.dispose();
       }
     });
-    if (this._socket != null) {
-      this._socket.close();
-    }
+    // TODO: Close any open sockets/connections
   }
 }
