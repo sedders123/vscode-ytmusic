@@ -4,9 +4,9 @@ import {
   StatusBarAlignment,
   StatusBarItem,
 } from "vscode";
-import Cache from "vscode-cache";
 import { Track, Button, RepeatMode } from "./types";
 import { friendlyErrorMessages } from "./constants";
+import Cache from "./cache";
 
 /**
  * Constantly changing class that holds YTMDP data
@@ -20,7 +20,7 @@ export default class YouTubeMusic {
   private _codeCache: Cache;
 
   public constructor(context: ExtensionContext) {
-    this._codeCache = new Cache(context);
+    this._codeCache = new Cache(context, "ytMusic");
     const authCode = this._codeCache.get("authCode");
     if (authCode) {
       // Initialize the socket
