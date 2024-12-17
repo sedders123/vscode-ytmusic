@@ -7,9 +7,8 @@ import {
 import Cache from "vscode-cache";
 import * as io from "socket.io-client";
 import fetch from "node-fetch";
-import { Track, Button, RepeatMode, ApiResponse } from "./types";
+import { Track, Button, RepeatMode, ApiResponse, ApiAuthRequestResponse, ApiRequestCodeResponse, ApiStateResponse } from "./types";
 import { friendlyErrorMessages } from "./constants";
-
 /**
  * Constantly changing class that holds YTMDP data
  */
@@ -19,9 +18,8 @@ export default class YouTubeMusic {
 
   private _track: Track;
   private _isPaused: boolean;
-  private _repeat: string;
+  private _repeat: RepeatMode;
   private _apiUrl = "http://localhost:9863";
-  private _socket: io.Socket;
   private _codeCache: Cache;
   private _lastConnectionErrorMessage: string;
 
@@ -29,8 +27,8 @@ export default class YouTubeMusic {
     this._codeCache = new Cache(context);
     const authCode = this._codeCache.get("authCode");
     if (authCode) {
-      this._socket = this.initSocket(authCode);
       this.createButtons();
+      this.initSocket(authCode);
     } else {
       this.createAuthButton();
     }
@@ -76,37 +74,50 @@ export default class YouTubeMusic {
     }
   }
 
-  private initSocket(authCode) {
-    const socket = io.connect(this._apiUrl, {
-      extraHeaders: {
-        password: authCode,
+  private tick(authCode) {
+    fetch(`${this._apiUrl}/api/v1/state`, {
+      headers: {
+        Authorization: `${authCode}`,
       },
-      reconnectionAttempts: 3,
-    });
-
-    socket.on("tick", (data) => {
-      this._track = data.track;
-      this._isPaused = data.player.isPaused;
-      this._repeat = data.player.repeatType;
-      this.updateRepeatButtonState();
-      this.refreshNowPlaying();
-      this.updateDynamicButton("playPause", !this._isPaused);
-      this.updateDynamicButton("thumbsUp", data.player.likeStatus === "LIKE");
-      this.updateDynamicButton(
-        "thumbsDown",
-        data.player.likeStatus === "DISLIKE"
-      );
-    });
-
-    socket.on("reconnect_error", (err) => {
-      this._lastConnectionErrorMessage = err.message;
-    });
-
-    socket.on("reconnect_failed", () => {
-      this.showErrorMessage(this._lastConnectionErrorMessage);
-    });
-
-    return socket;
+    })
+      .then(async (response) => {
+        const responseJson: ApiStateResponse =
+          (await response.json()) as ApiStateResponse;
+        if (responseJson.error) {
+          if (responseJson.error === "UNAUTHORIZED") {
+            this.removeButton("auth");
+            this.createAuthButton();
+          }
+          this.showErrorMessage(responseJson.error);
+          return;
+        }
+        this._track = {
+          title: responseJson.video.title,
+          thumbnails: [],
+          author: responseJson.video.author,
+          duration: "0:00",
+          selected: false,
+          videoId: responseJson.video.channelId,
+        };
+        this._isPaused = responseJson.player.trackState === 0;
+        this._repeat = responseJson.player.queue.repeatMode;
+        this.updateRepeatButtonState();
+        this.refreshNowPlaying();
+        this.updateDynamicButton("playPause", !this._isPaused);
+        this.updateDynamicButton("thumbsUp", responseJson.video.likeStatus === 2);
+        this.updateDynamicButton("thumbsDown", responseJson.video.likeStatus === 0);
+      })
+      .catch((err) => {
+        if (err.message !== this._lastConnectionErrorMessage) {
+          this.showErrorMessage(err.message);
+          this._lastConnectionErrorMessage = err.message;
+        }
+      });
+  }
+  private initSocket(authCode) {
+    // this procedure is chosen because websocket is giving errors at the moment
+    setInterval(() => this.tick(authCode), 10_000); 
+    this.tick(authCode);
   }
 
   private createControlButtons() {
@@ -226,26 +237,26 @@ export default class YouTubeMusic {
     return `${track.title} - ${track.author}`;
   }
 
-  private post(command, value?) {
-    fetch(`${this._apiUrl}/query`, {
+  private post(command, data?) {
+    fetch(`${this._apiUrl}/api/v1/command`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Code ${this._codeCache.get("authCode")}`,
+        Authorization: `${this._codeCache.get("authCode")}`,
       },
       body: JSON.stringify({
         command,
-        value,
+        data,
       }),
     })
       .then(async (response) => {
+        if (response.status === 204) return;
         const responseJson: ApiResponse =
           (await response.json()) as ApiResponse;
         if (responseJson.error) {
           this.showErrorMessage(responseJson.error);
           if (
-            responseJson.error === "Unathorized" ||
-            responseJson.error === "Unauthorized"
+            responseJson.error === "UNAUTHORIZED"
           ) {
             const buttonKeys = Object.keys(this._buttons);
             for (const key of buttonKeys) {
@@ -264,47 +275,92 @@ export default class YouTubeMusic {
     const errorMessage = friendlyErrorMessages.get(message) ?? message;
     window.showErrorMessage(`vscode-ytmusic: ${errorMessage}`);
   }
+  private showInfoMessage(message: string) {
+    window.showInformationMessage(`vscode-ytmusic: ${message}`);
+  }
 
   public auth() {
-    window
-      .showInputBox({
-        prompt: "Enter your Youtube Music Desktop Player Auth Code",
-        ignoreFocusOut: true,
+    fetch(`${this._apiUrl}/api/v1/auth/requestcode`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "appId": "vscode-ytmusic",
+        "appName": "Vscode Youtube Music",
+        "appVersion": "1.0.0"
       })
-      .then((code) => {
-        this._codeCache.put("authCode", code);
-        this.initSocket(code);
-        this.removeButton("auth");
-        if (this._nowPlayingStatusBarItem != null) {
-          this._nowPlayingStatusBarItem.dispose();
-          this._nowPlayingStatusBarItem = null;
+    })
+      .then(async (response) => {
+        const responseJson = (await response.json()) as ApiRequestCodeResponse; 
+        if (responseJson.error) {
+          this.showErrorMessage(responseJson.error ?? "An error occurred");
+          return;
         }
-        this.createButtons();
+        this.showInfoMessage(`Please open Youtube Music Desktop App and approve Authorization Request with code: ${responseJson.code}`);
+        fetch(`${this._apiUrl}/api/v1/auth/request`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "appId": "vscode-ytmusic",
+            "appName": "Vscode Youtube Music",
+            "appVersion": "1.0.0",
+            "code": responseJson.code
+          })
+        })
+          .then(async (response) => {
+            const responseJson = (await response.json()) as ApiAuthRequestResponse;
+            if (responseJson.error) {
+              this.showErrorMessage(responseJson.error);
+              return;
+            }
+            this._codeCache.put("authCode", responseJson.token);
+            this.initSocket(responseJson.token);
+            this.removeButton("auth");
+            if (this._nowPlayingStatusBarItem != null) {
+              this._nowPlayingStatusBarItem.dispose();
+              this._nowPlayingStatusBarItem = null;
+            }
+            this.createButtons();
+            this.showInfoMessage("Successfully authenticated into Youtube Music Desktop Player");
+          })
+          .catch((err) => {
+            this.showErrorMessage(err);
+          });
+      })
+      .catch((err) => {
+        this.showErrorMessage(err);
       });
   }
 
   public togglePlay() {
-    this.post("track-play-pause");
+    this._isPaused = !this._isPaused;
+    this.updateDynamicButton("playPause", !this._isPaused);
+    this.post("playPause");
   }
 
   public forward() {
-    this.post("track-next");
+    this.post("next");
   }
 
   public rewind() {
-    this.post("track-previous");
+    this.post("previous");
   }
 
-  public toggleRepeat(mode: string) {
-    this.post("player-repeat", mode);
+  public toggleRepeat(mode: number) {
+    this._repeat = mode;
+    this.updateRepeatButtonState();
+    this.post("repeatMode", mode);
   }
 
   public thumbsUp() {
-    this.post("track-thumbs-up");
+    this.post("toggleLike");
   }
 
   public thumbsDown() {
-    this.post("track-thumbs-down");
+    this.post("toggleDislike");
   }
 
   public cycleRepeat() {
@@ -330,8 +386,5 @@ export default class YouTubeMusic {
         button.statusBarItem.dispose();
       }
     });
-    if (this._socket != null) {
-      this._socket.close();
-    }
   }
 }
