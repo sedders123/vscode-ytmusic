@@ -291,9 +291,11 @@ export default class YouTubeMusic {
         data,
       }),
     });
-    const { error } = await response.json();
-    if (error) {
-      this.showErrorMessage(error);
+    if (response.headers.get("content-type") === "application/json") {
+      const { error } = await response.json();
+      if (error) {
+        this.showErrorMessage(error);
+      }
     }
   }
 
