@@ -18,6 +18,7 @@ export interface PlayerState {
 export interface QueueState {
   items: Track[];
   repeatMode: RepeatMode;
+  selectedItemIndex: number;
 }
 
 export interface VideoState {

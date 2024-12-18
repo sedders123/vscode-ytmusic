@@ -68,8 +68,8 @@ export default class YouTubeMusic {
     });
 
     this._socket.on("state-update", (state: State) => {
-      console.log("State update received", state);
-      this._track = state.player.queue.items[0];
+      this._track =
+        state.player.queue.items[state.player.queue.selectedItemIndex];
       this._repeat = state.player.queue.repeatMode;
       this.updateRepeatButtonState();
       this.refreshNowPlaying();
