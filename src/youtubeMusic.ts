@@ -279,22 +279,26 @@ export default class YouTubeMusic {
   }
 
   private async sendCommand(command: string, data?: any) {
-    const response = await fetch(`${this._apiUrl}/command`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${this._codeCache.get("authCode")}`,
-      },
-      body: JSON.stringify({
-        command,
-        data,
-      }),
-    });
-    if (response.headers.get("content-type") === "application/json") {
-      const { error } = await response.json();
-      if (error) {
-        this.showErrorMessage(error);
+    try {
+      const response = await fetch(`${this._apiUrl}/command`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${this._codeCache.get("authCode")}`,
+        },
+        body: JSON.stringify({
+          command,
+          data,
+        }),
+      });
+      if (response.headers.get("content-type") === "application/json") {
+        const { error } = await response.json();
+        if (error) {
+          this.showErrorMessage(error);
+        }
       }
+    } catch (error) {
+      this.showErrorMessage(error);
     }
   }
 
