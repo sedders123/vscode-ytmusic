@@ -4,7 +4,7 @@ on:
   push:
 
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -16,8 +16,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: 'npm'
+          node-version: 22
+          cache: "npm"
 
       - name: Install dependencies
         run: |
