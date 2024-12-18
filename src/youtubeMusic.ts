@@ -64,7 +64,6 @@ export default class YouTubeMusic {
       auth: {
         token: authCode,
       },
-      reconnectionAttempts: 3,
     });
 
     this._socket.on("state-update", (state: State) => {
