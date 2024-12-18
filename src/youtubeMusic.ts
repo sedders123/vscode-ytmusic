@@ -254,7 +254,7 @@ export default class YouTubeMusic {
       return;
     }
     this.showInformationMessage(
-      `Please open Youtube Music Desktop App and approve the Authorization Request with code: ${code}`
+      `Please open the Youtube Music Desktop App and approve the Authorization Request. The code should be: ${code}`
     );
     const tokenResponse = await fetch(`${this._apiUrl}/auth/request`, {
       method: "POST",
