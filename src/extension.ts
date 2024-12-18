@@ -4,19 +4,22 @@ import YouTubeMusic from "./youtubeMusic";
 export function activate(context: ExtensionContext) {
   let ytMusic = new YouTubeMusic(context);
 
-  const playPauseCommand = commands.registerCommand("ytMusic.playPause", () => {
-    ytMusic.togglePlay();
+  const playPauseCommand = commands.registerCommand(
+    "ytMusic.playPause",
+    async () => {
+      await ytMusic.togglePlay();
+    }
+  );
+  const skipCommand = commands.registerCommand("ytMusic.skip", async () => {
+    await ytMusic.next();
   });
-  const skipCommand = commands.registerCommand("ytMusic.skip", () => {
-    ytMusic.forward();
-  });
-  const rewindCommand = commands.registerCommand("ytMusic.rewind", () => {
-    ytMusic.rewind();
+  const rewindCommand = commands.registerCommand("ytMusic.rewind", async () => {
+    await ytMusic.previous();
   });
   const cycleRepeatCommand = commands.registerCommand(
     "ytMusic.cycleRepeat",
-    () => {
-      ytMusic.cycleRepeat();
+    async () => {
+      await ytMusic.cycleRepeat();
     }
   );
   const restartCommand = commands.registerCommand("ytMusic.restart", () => {
@@ -24,18 +27,21 @@ export function activate(context: ExtensionContext) {
     ytMusic = new YouTubeMusic(context);
   });
 
-  const authCommand = commands.registerCommand("ytMusic.auth", () => {
-    ytMusic.auth();
+  const authCommand = commands.registerCommand("ytMusic.auth", async () => {
+    await ytMusic.auth();
   });
 
-  const thumbsUpCommand = commands.registerCommand("ytMusic.thumbsUp", () => {
-    ytMusic.thumbsUp();
-  });
+  const thumbsUpCommand = commands.registerCommand(
+    "ytMusic.thumbsUp",
+    async () => {
+      await ytMusic.thumbsUp();
+    }
+  );
 
   const thumbsDownCommand = commands.registerCommand(
     "ytMusic.thumbsDown",
-    () => {
-      ytMusic.thumbsDown();
+    async () => {
+      await ytMusic.thumbsDown();
     }
   );
 

@@ -2,7 +2,7 @@
   "name": "vscode-ytmusic",
   "displayName": "vscode-ytmusic",
   "description": "Connecting VS Code with the YTMDesktop Player",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "publisher": "sedders123",
   "author": {
     "name": "James Seden Smith"
@@ -82,7 +82,7 @@
         "category": "Youtube Music"
       }
     ],
-    "icons":{
+    "icons": {
       "mui-thumbs-up": {
         "description": "Thumbs up outlined",
         "default": {
@@ -122,17 +122,24 @@
     "test-compile": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/node": "20.9.0",
-    "@types/node-fetch": "2.6.9",
+    "@types/node": "22.10.2",
+    "@types/node-fetch": "2.6.12",
+    "@types/socket.io": "3.0.2",
     "@types/vscode": "1.64.0",
-    "esbuild": "0.19.9",
-    "lockfile-lint": "4.12.1",
-    "prettier": "3.1.1",
-    "typescript": "5.3.3"
+    "esbuild": "0.24.0",
+    "lockfile-lint": "4.14.0",
+    "prettier": "3.4.2",
+    "typescript": "5.7.2"
+  },
+  "optionalDependencies": {
+    "@esbuild/darwin-arm64": "0.24.0",
+    "@esbuild/linux-arm64": "0.24.0",
+    "@esbuild/linux-x64": "0.24.0",
+    "@esbuild/win32-x64": "0.24.0",
+    "@esbuild/win32-arm64": "0.24.0"
   },
   "dependencies": {
     "node-fetch": "3.3.2",
-    "socket.io-client": "2.5.0",
-    "vscode-cache": "0.3.0"
+    "socket.io-client": "4.8.1"
   }
 }
