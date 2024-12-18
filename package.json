@@ -122,8 +122,9 @@
     "test-compile": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/node": "20.9.0",
-    "@types/node-fetch": "2.6.9",
+    "@types/node": "18.11.9",
+    "@types/node-fetch": "2.6.2",
+    "@types/socket.io": "^3.0.1",
     "@types/vscode": "1.64.0",
     "esbuild": "0.19.9",
     "lockfile-lint": "4.12.1",
@@ -131,7 +132,7 @@
     "typescript": "5.3.3"
   },
   "dependencies": {
-    "node-fetch": "3.3.0",
-    "socket.io-client": "2.5.0"
+    "node-fetch": "3.3.2",
+    "socket.io-client": "4.8.1"
   }
 }

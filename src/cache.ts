@@ -19,7 +19,7 @@ class Cache {
    * @param key - The key of the value to retrieve.
    * @returns The value associated with the key, or undefined if the key does not exist.
    */
-  public get(key: string) {
+  public get(key: string): any {
     return this._cache.get(`${this._namespace}.${key}`);
   }
 
