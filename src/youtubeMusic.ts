@@ -31,7 +31,7 @@ export default class YouTubeMusic {
   private _socket: Socket;
 
   public constructor(context: ExtensionContext) {
-    this._codeCache = new Cache(context, "ytMusic");
+    this._codeCache = new Cache(context, "vscode-ytmusic");
     const authCode = this._codeCache.get("authCode") as string;
     if (authCode) {
       this.initSocket(authCode);
