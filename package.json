@@ -35,9 +35,6 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "files": [
-    "/dist"
-  ],
   "main": "./dist/main",
   "contributes": {
     "commands": [
