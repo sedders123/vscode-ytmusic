@@ -83,59 +83,59 @@
       }
     ],
     "icons": {
-      "icon-thumbs-up-deselected": {
+      "mui-thumbs-up-deselected": {
         "description": "Thumbs up deselected",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e903"
         }
       },
-      "icon-thumbs-up-selected": {
+      "mui-thumbs-up-selected": {
         "description": "Thumbs up selected",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e907"
         }
       },
-      "icon-thumbs-down-deselected": {
+      "mui-thumbs-down-deselected": {
         "description": "Thumbs up deselected",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e902"
         }
       },
-      "icon-thumbs-down-selected": {
+      "mui-thumbs-down-selected": {
         "description": "Thumbs up selected",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e906"
         }
       },
-      "icon-play": {
+      "mui-play": {
         "description": "Play icon",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e905"
         }
       },
-      "icon-pause": {
+      "mui-pause": {
         "description": "Pause icon",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e904"
         }
       },
-      "icon-skip-next": {
+      "mui-skip-next": {
         "description": "Skip next icon",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e901"
         }
       },
-      "icon-skip-previous": {
+      "mui-skip-previous": {
         "description": "Skip previous icon",
         "default": {
-          "fontPath": "./fonts/font-google-material-icons-subset.woff2",
+          "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e900"
         }
       }

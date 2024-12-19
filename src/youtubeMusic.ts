@@ -116,21 +116,21 @@ export default class YouTubeMusic {
       {
         id: "rewind",
         title: "Previous Song",
-        text: "$(icon-skip-previous)",
+        text: "$(mui-skip-previous)",
         priority: 0.9,
       },
       {
         id: "playPause",
         title: "Play / Pause",
-        text: "$(icon-play)",
+        text: "$(mui-play)",
         dynamicText: (currentlyPlaying: boolean) =>
-          currentlyPlaying ? "$(icon-pause)" : "$(icon-play)",
+          currentlyPlaying ? "$(mui-pause)" : "$(mui-play)",
         priority: 0.8,
       },
       {
         id: "skip",
         title: "Next Song",
-        text: "$(icon-skip-next)",
+        text: "$(mui-skip-next)",
         priority: 0.7,
       },
       {
@@ -143,21 +143,21 @@ export default class YouTubeMusic {
       {
         id: "thumbsDown",
         title: "Thumbs Down",
-        text: "$(icon-thumbs-down-deselected)",
+        text: "$(mui-thumbs-down-deselected)",
         dynamicText: (isThumbsDown: boolean) =>
           isThumbsDown
-            ? "$(icon-thumbs-down-selected)"
-            : "$(icon-thumbs-down-deselected)",
+            ? "$(mui-thumbs-down-selected)"
+            : "$(mui-thumbs-down-deselected)",
         priority: 0.4,
       },
       {
         id: "thumbsUp",
         title: "Thumbs Up",
-        text: "$(icon-thumbs-up-deselected)",
+        text: "$(mui-thumbs-up-deselected)",
         dynamicText: (isThumbsUp: boolean) =>
           isThumbsUp
-            ? "$(icon-thumbs-up-selected)"
-            : "$(icon-thumbs-up-deselected)",
+            ? "$(mui-thumbs-up-selected)"
+            : "$(mui-thumbs-up-deselected)",
         priority: 0.3,
       },
     ];
