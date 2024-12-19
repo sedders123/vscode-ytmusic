@@ -86,29 +86,57 @@
       "mui-thumbs-up": {
         "description": "Thumbs up outlined",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e9f3"
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e903"
         }
       },
       "mui-thumbs-up-solid": {
         "description": "Thumbs up solid",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e8dc"
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e907"
         }
       },
       "mui-thumbs-down": {
         "description": "Thumbs down outlined",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e9f2"
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e902"
         }
       },
       "mui-thumbs-down-solid": {
         "description": "Thumbs down solid",
         "default": {
-          "fontPath": "./fonts/material-ui-font-subset.woff2",
-          "fontCharacter": "\\e8db"
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e906"
+        }
+      },
+      "mui-play": {
+        "description": "Play icon",
+        "default": {
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e905"
+        }
+      },
+      "mui-pause": {
+        "description": "Pause icon",
+        "default": {
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e904"
+        }
+      },
+      "mui-skip-next": {
+        "description": "Skip next icon",
+        "default": {
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e901"
+        }
+      },
+      "mui-skip-previous": {
+        "description": "Skip previous icon",
+        "default": {
+          "fontPath": "./fonts/material-icons-subset.woff2",
+          "fontCharacter": "\\e900"
         }
       }
     }

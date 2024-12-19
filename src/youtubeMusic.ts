@@ -116,21 +116,21 @@ export default class YouTubeMusic {
       {
         id: "rewind",
         title: "Previous Song",
-        text: "$(chevron-left)",
+        text: "$(mui-skip-previous)",
         priority: 0.9,
       },
       {
         id: "playPause",
         title: "Play / Pause",
-        text: "$(triangle-right)",
+        text: "$(mui-play)",
         dynamicText: (currentlyPlaying: boolean) =>
-          currentlyPlaying ? "$(primitive-square)" : "$(triangle-right)",
+          currentlyPlaying ? "$(mui-pause)" : "$(mui-play)",
         priority: 0.8,
       },
       {
         id: "skip",
         title: "Next Song",
-        text: "$(chevron-right)",
+        text: "$(mui-skip-next)",
         priority: 0.7,
       },
       {
