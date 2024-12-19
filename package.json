@@ -83,29 +83,29 @@
       }
     ],
     "icons": {
-      "mui-thumbs-up-deselected": {
-        "description": "Thumbs up deselected",
+      "mui-thumbs-up": {
+        "description": "Thumbs up outlined",
         "default": {
           "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e903"
         }
       },
-      "mui-thumbs-up-selected": {
-        "description": "Thumbs up selected",
+      "mui-thumbs-up-solid": {
+        "description": "Thumbs up solid",
         "default": {
           "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e907"
         }
       },
-      "mui-thumbs-down-deselected": {
-        "description": "Thumbs up deselected",
+      "mui-thumbs-down": {
+        "description": "Thumbs down outlined",
         "default": {
           "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e902"
         }
       },
-      "mui-thumbs-down-selected": {
-        "description": "Thumbs up selected",
+      "mui-thumbs-down-solid": {
+        "description": "Thumbs down solid",
         "default": {
           "fontPath": "./fonts/material-icons-subset.woff2",
           "fontCharacter": "\\e906"

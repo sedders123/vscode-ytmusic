@@ -143,21 +143,17 @@ export default class YouTubeMusic {
       {
         id: "thumbsDown",
         title: "Thumbs Down",
-        text: "$(mui-thumbs-down-deselected)",
+        text: "$(mui-thumbs-down)",
         dynamicText: (isThumbsDown: boolean) =>
-          isThumbsDown
-            ? "$(mui-thumbs-down-selected)"
-            : "$(mui-thumbs-down-deselected)",
+          isThumbsDown ? "$(mui-thumbs-down-solid)" : "$(mui-thumbs-down)",
         priority: 0.4,
       },
       {
         id: "thumbsUp",
         title: "Thumbs Up",
-        text: "$(mui-thumbs-up-deselected)",
+        text: "$(mui-thumbs-up)",
         dynamicText: (isThumbsUp: boolean) =>
-          isThumbsUp
-            ? "$(mui-thumbs-up-selected)"
-            : "$(mui-thumbs-up-deselected)",
+          isThumbsUp ? "$(mui-thumbs-up-solid)" : "$(mui-thumbs-up)",
         priority: 0.3,
       },
     ];
