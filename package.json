@@ -164,7 +164,7 @@
     "@esbuild/linux-arm64": "0.24.0",
     "@esbuild/linux-x64": "0.24.0",
     "@esbuild/win32-x64": "0.24.0",
-    "@esbuild/win32-arm64": "0.24.0"
+    "@esbuild/win32-arm64": "0.24.2"
   },
   "dependencies": {
     "node-fetch": "3.3.2",
