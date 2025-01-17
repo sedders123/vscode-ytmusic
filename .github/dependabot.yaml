@@ -7,3 +7,19 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "@types/vscode"
+    groups:
+      types:
+        patterns:
+          - "@types/*"
+      esbuild:
+        patterns:
+          - "esbuild"
+          - "@esbuild/*"
+  - package-ecosystem: "github-actions"
+    # Look for `.github/workflows` in the `root` directory
+    directory: "/"
+    # Check for updates every day (weekdays)
+    schedule:
+      interval: "daily"
