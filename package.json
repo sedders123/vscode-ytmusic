@@ -153,7 +153,7 @@
     "esbuild": "0.25.2",
     "lockfile-lint": "4.14.0",
     "prettier": "3.5.3",
-    "typescript": "5.8.2"
+    "typescript": "5.8.3"
   },
   "optionalDependencies": {
     "@esbuild/darwin-arm64": "0.25.2",
