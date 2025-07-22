@@ -150,17 +150,17 @@
     "@types/node": "22.15.15",
     "@types/node-fetch": "2.6.12",
     "@types/vscode": "1.64.0",
-    "esbuild": "0.25.6",
+    "esbuild": "0.25.8",
     "lockfile-lint": "4.14.1",
     "prettier": "3.6.0",
     "typescript": "5.8.3"
   },
   "optionalDependencies": {
-    "@esbuild/darwin-arm64": "0.25.6",
-    "@esbuild/linux-arm64": "0.25.6",
-    "@esbuild/linux-x64": "0.25.6",
-    "@esbuild/win32-x64": "0.25.6",
-    "@esbuild/win32-arm64": "0.25.6"
+    "@esbuild/darwin-arm64": "0.25.8",
+    "@esbuild/linux-arm64": "0.25.8",
+    "@esbuild/linux-x64": "0.25.8",
+    "@esbuild/win32-x64": "0.25.8",
+    "@esbuild/win32-arm64": "0.25.8"
   },
   "dependencies": {
     "node-fetch": "3.3.2",
