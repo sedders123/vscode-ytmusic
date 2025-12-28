@@ -17,6 +17,12 @@ Connecting VS Code with the [YouTube Music Desktop Player](https://ytmdesktop.ap
 
 * [YTMDesktop App](https://ytmdesktop.app/)
 
+## Installation
+
+1. Install the extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=sedders123.vscode-ytmusic) or by searching for "vscode-ytmusic" in the Extensions view.
+2. In the Youtube Music Desktop Player, go to Settings > Integrations and enable "Companion Server" then enable "Enable companion authorization"
+3. In VS Code click the "Authenticate with YTMDP" button in the status bar and allow the connection in the Youtube Music Desktop Player app.
+
 ## Building
 
 Run `vsce package` to build the extension.
