@@ -25,13 +25,13 @@ export default class YouTubeMusic {
   private _nowPlayingStatusBarItem: StatusBarItem | null;
   private _buttons: Record<string, Button> = {};
 
-  private _track: Track;
-  private _repeat: RepeatMode;
+  private _track: Track | null;
+  private _repeat: RepeatMode = RepeatMode.Unknown;
   private _codeCache: Cache;
-  private _socket: Socket;
+  private _socket: Socket | null;
 
   public constructor(context: ExtensionContext) {
-    this._codeCache = new Cache(context, "vscode-ytmusic");
+    this._codeCache = new Cache(context, "vscode-ytmusic-1");
     const authCode = this._codeCache.get("authCode") as string;
     if (authCode) {
       this.initSocket(authCode);
@@ -39,6 +39,10 @@ export default class YouTubeMusic {
     } else {
       this.createAuthButton();
     }
+
+    this._nowPlayingStatusBarItem = null;
+    this._track = null;
+    this._socket = null;
   }
 
   private createAuthButton() {
@@ -221,7 +225,7 @@ export default class YouTubeMusic {
     this._nowPlayingStatusBarItem.show();
   }
 
-  private getNowPlayingText(track: Track): string {
+  private getNowPlayingText(track: Track | null): string {
     if (track == null || track.title === null) {
       return "";
     }
@@ -297,7 +301,7 @@ export default class YouTubeMusic {
           this.showErrorMessage(error);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       this.showErrorMessage(error);
     }
   }
