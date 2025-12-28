@@ -40,7 +40,7 @@
     "commands": [
       {
         "command": "ytMusic.auth",
-        "title": "Set the auth code",
+        "title": "Trigger authorization with Youtube Music Desktop Player",
         "category": "Youtube Music"
       },
       {
