@@ -4,18 +4,18 @@ Connecting VS Code with the [YouTube Music Desktop Player](https://ytmdesktop.ap
 
 ## Features
 
-* See what song is currently playing
-* Play / Pause
-* Skip / Rewind
-* Thumbsup / Thumbsdown
-* Cycle Repeat Mode
-* Playback controls in the Status Bar
+- See what song is currently playing
+- Play / Pause
+- Skip / Rewind
+- Thumbsup / Thumbsdown
+- Cycle Repeat Mode
+- Playback controls in the Status Bar
 
 ![Plaback controls added to the status bar](https://user-images.githubusercontent.com/1496834/153911404-39ac8346-e67d-49f9-a567-5d27d875aa69.png)
 
 ## Requirements
 
-* [YTMDesktop App](https://ytmdesktop.app/)
+- [YTMDesktop App](https://ytmdesktop.app/)
 
 ## Installation
 
