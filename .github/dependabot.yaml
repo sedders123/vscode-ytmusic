@@ -17,9 +17,13 @@ updates:
         patterns:
           - "esbuild"
           - "@esbuild/*"
+    cooldown:
+      default-days: 7
   - package-ecosystem: "github-actions"
     # Look for `.github/workflows` in the `root` directory
     directory: "/"
     # Check for updates every day (weekdays)
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
