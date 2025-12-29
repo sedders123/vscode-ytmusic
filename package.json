@@ -159,8 +159,8 @@
     "@esbuild/darwin-arm64": "0.27.2",
     "@esbuild/linux-arm64": "0.27.2",
     "@esbuild/linux-x64": "0.27.2",
-    "@esbuild/win32-x64": "0.27.2",
-    "@esbuild/win32-arm64": "0.27.2"
+    "@esbuild/win32-arm64": "0.27.2",
+    "@esbuild/win32-x64": "0.27.2"
   },
   "dependencies": {
     "node-fetch": "3.3.2",
