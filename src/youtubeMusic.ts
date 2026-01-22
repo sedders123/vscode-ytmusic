@@ -79,15 +79,15 @@ export default class YouTubeMusic {
       this.updateDynamicButton(
         "playPause",
         state.player.trackState == TrackStatus.Playing ||
-          state.player.trackState == TrackStatus.Buffering
+          state.player.trackState == TrackStatus.Buffering,
       );
       this.updateDynamicButton(
         "thumbsUp",
-        state.video.likeStatus == LikeStatus.Liked
+        state.video.likeStatus == LikeStatus.Liked,
       );
       this.updateDynamicButton(
         "thumbsDown",
-        state.video.likeStatus == LikeStatus.Disliked
+        state.video.likeStatus == LikeStatus.Disliked,
       );
     });
   }
@@ -106,7 +106,7 @@ export default class YouTubeMusic {
     if (!this._nowPlayingStatusBarItem) {
       this._nowPlayingStatusBarItem = window.createStatusBarItem(
         StatusBarAlignment.Left,
-        0.1
+        0.1,
       );
       this._nowPlayingStatusBarItem.name = "YT Music - Now Playing";
     }
@@ -167,7 +167,7 @@ export default class YouTubeMusic {
       const statusBarItem = window.createStatusBarItem(
         button.id,
         StatusBarAlignment.Left,
-        button.priority
+        button.priority,
       );
       statusBarItem.name = `YT Music - ${button.name || button.title}`;
       statusBarItem.text = button.text;
@@ -257,7 +257,7 @@ export default class YouTubeMusic {
       return;
     }
     this.showInformationMessage(
-      `Please open the Youtube Music Desktop App and approve the Authorization Request. The code should be: ${code}`
+      `Please open the Youtube Music Desktop App and approve the Authorization Request. The code should be: ${code}`,
     );
     const tokenResponse = await fetch(`${this._apiUrl}/auth/request`, {
       method: "POST",
