@@ -152,7 +152,7 @@
     "@types/vscode": "1.64.0",
     "esbuild": "0.27.3",
     "lockfile-lint": "5.0.0",
-    "prettier": "3.8.0",
+    "prettier": "3.8.1",
     "typescript": "5.9.3"
   },
   "optionalDependencies": {
