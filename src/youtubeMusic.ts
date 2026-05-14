@@ -31,6 +31,10 @@ export default class YouTubeMusic {
   private _socket: Socket | null;
 
   public constructor(context: ExtensionContext) {
+    this._nowPlayingStatusBarItem = null;
+    this._track = null;
+    this._socket = null;
+
     this._codeCache = new Cache(context, "vscode-ytmusic");
     const authCode = this._codeCache.get("authCode") as string;
     if (authCode) {
@@ -39,10 +43,6 @@ export default class YouTubeMusic {
     } else {
       this.createAuthButton();
     }
-
-    this._nowPlayingStatusBarItem = null;
-    this._track = null;
-    this._socket = null;
   }
 
   private createAuthButton() {
