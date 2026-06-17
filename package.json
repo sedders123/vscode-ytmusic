@@ -149,7 +149,7 @@
   "devDependencies": {
     "@types/node": "25.9.1",
     "@types/vscode": "1.64.0",
-    "esbuild": "0.28.0",
+    "esbuild": "0.28.1",
     "lockfile-lint": "5.0.0",
     "prettier": "3.8.4",
     "typescript": "6.0.3"
