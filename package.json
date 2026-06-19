@@ -155,11 +155,11 @@
     "typescript": "6.0.3"
   },
   "optionalDependencies": {
-    "@esbuild/darwin-arm64": "0.28.0",
-    "@esbuild/linux-arm64": "0.28.0",
-    "@esbuild/linux-x64": "0.28.0",
-    "@esbuild/win32-arm64": "0.28.0",
-    "@esbuild/win32-x64": "0.28.0"
+    "@esbuild/darwin-arm64": "0.28.1",
+    "@esbuild/linux-arm64": "0.28.1",
+    "@esbuild/linux-x64": "0.28.1",
+    "@esbuild/win32-arm64": "0.28.1",
+    "@esbuild/win32-x64": "0.28.1"
   },
   "dependencies": {
     "socket.io-client": "4.8.3"
