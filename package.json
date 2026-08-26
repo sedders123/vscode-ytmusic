@@ -149,17 +149,17 @@
   "devDependencies": {
     "@types/node": "25.9.1",
     "@types/vscode": "1.64.0",
-    "esbuild": "0.28.1",
+    "esbuild": "0.28.2",
     "lockfile-lint": "5.0.0",
     "prettier": "3.8.4",
     "typescript": "6.0.3"
   },
   "optionalDependencies": {
-    "@esbuild/darwin-arm64": "0.28.1",
-    "@esbuild/linux-arm64": "0.28.1",
-    "@esbuild/linux-x64": "0.28.1",
-    "@esbuild/win32-arm64": "0.28.1",
-    "@esbuild/win32-x64": "0.28.1"
+    "@esbuild/darwin-arm64": "0.28.2",
+    "@esbuild/linux-arm64": "0.28.2",
+    "@esbuild/linux-x64": "0.28.2",
+    "@esbuild/win32-arm64": "0.28.2",
+    "@esbuild/win32-x64": "0.28.2"
   },
   "dependencies": {
     "socket.io-client": "4.8.3"
